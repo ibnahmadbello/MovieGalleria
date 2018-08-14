@@ -1,13 +1,25 @@
 package com.example.regent.moviegalleria;
 
+import android.net.Uri;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class TheMovieSearch {
+
+    private static final String TAG = TheMovieSearch.class.getSimpleName();
+
 
     public byte[] getUrlBytes(String movieUrl) throws IOException{
 
@@ -36,5 +48,43 @@ public class TheMovieSearch {
     }
     public String getUrlString(String movieUrl) throws IOException{
         return new String(getUrlBytes(movieUrl));
+    }
+
+    public List<Movie> fetchMovie(){
+        List<Movie> items = new ArrayList<>();
+
+        try {
+            String url = Uri.parse("https://api.themoviedb.org/3/movie/")
+                    .buildUpon()
+                    .appendPath("popular")
+                    .appendQueryParameter("api_key", API_KEY)
+                    .build().toString();
+            String jsonString = getUrlString(url);
+            Log.i(TAG, "RECEIVED JSON: " + jsonString);
+            JSONObject jsonBody = new JSONObject(jsonString);
+            parseItems(items, jsonBody);
+        } catch (JSONException e){
+            Log.e(TAG, "Failed to parse JSON", e);
+        } catch (IOException e){
+            Log.e(TAG, "Failed to fetch items", e);
+        }
+
+        return items;
+    }
+
+    private void parseItems(List<Movie> movies, JSONObject jsonBody) throws IOException, JSONException{
+        JSONArray resultJSONArray = jsonBody.getJSONArray("result");
+        for (int i = 0; i < resultJSONArray.length(); i++){
+            JSONObject resultObject = resultJSONArray.getJSONObject(i);
+
+            Movie movie = new Movie();
+            movie.setMovieName(resultObject.getString("title"));
+            movie.setOverView(resultObject.getString("overview"));
+            movie.setImage(resultObject.getString("poster_path"));
+            movie.setRating(resultObject.getString("vote_average"));
+            movie.setDate(resultObject.getString("release_date"));
+
+            movies.add(movie);
+        }
     }
 }

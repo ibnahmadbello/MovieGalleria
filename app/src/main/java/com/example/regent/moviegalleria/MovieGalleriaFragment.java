@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MovieGalleriaFragment extends Fragment {
 
@@ -28,6 +29,8 @@ public class MovieGalleriaFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
+        new FetchMovieTask().execute();
     }
 
     @Nullable
@@ -40,19 +43,12 @@ public class MovieGalleriaFragment extends Fragment {
         return view;
     }
 
-    private class FetchMovieTask extends AsyncTask<Void, Void, Void>{
+    private class FetchMovieTask extends AsyncTask<Void, Void, List<Movie>>{
 
 
         @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                String result = new TheMovieSearch().getUrlString("https://api.themoviedb.org/3/movie/popular?api_key=" + getString(R.string.my_key));
-                Log.i(TAG, "Fetched contents of the URL: " + result);
-            } catch (IOException e){
-                Log.e(TAG, "Failed to fetch URL Content: ", e);
-            }
-
-            return null;
+        protected List<Movie> doInBackground(Void... params) {
+            return new TheMovieSearch().fetchMovie();
         }
     }
 }
