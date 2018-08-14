@@ -1,13 +1,13 @@
 package com.example.regent.moviegalleria;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MovieGalleriaActivity extends AppCompatActivity {
+public class MovieGalleriaActivity extends SingleFragmentActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_movie_galleria);
+    protected Fragment createFragment() {
+        return MovieGalleriaFragment.newInstance();
     }
 }
