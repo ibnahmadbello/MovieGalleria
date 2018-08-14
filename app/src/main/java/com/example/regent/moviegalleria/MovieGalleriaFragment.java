@@ -46,7 +46,7 @@ public class MovieGalleriaFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                String result = new TheMovieSearch().getUrlString("https://api.themoviedb.org/3/movie/popular?api_key=e8ee808272e37253ce9bcafad5189dd0");
+                String result = new TheMovieSearch().getUrlString("https://api.themoviedb.org/3/movie/popular?api_key=" + getString(R.string.my_key));
                 Log.i(TAG, "Fetched contents of the URL: " + result);
             } catch (IOException e){
                 Log.e(TAG, "Failed to fetch URL Content: ", e);
