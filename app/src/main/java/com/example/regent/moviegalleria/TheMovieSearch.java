@@ -19,6 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class TheMovieSearch {
 
     private static final String TAG = TheMovieSearch.class.getSimpleName();
+    private static final String API_KEY = "e8ee808272e37253ce9bcafad5189dd0";
 
 
     public byte[] getUrlBytes(String movieUrl) throws IOException{
@@ -73,7 +74,7 @@ public class TheMovieSearch {
     }
 
     private void parseItems(List<Movie> movies, JSONObject jsonBody) throws IOException, JSONException{
-        JSONArray resultJSONArray = jsonBody.getJSONArray("result");
+        JSONArray resultJSONArray = jsonBody.getJSONArray("results");
         for (int i = 0; i < resultJSONArray.length(); i++){
             JSONObject resultObject = resultJSONArray.getJSONObject(i);
 
