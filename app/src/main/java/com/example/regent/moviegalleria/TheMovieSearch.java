@@ -67,9 +67,10 @@ public class TheMovieSearch {
         } catch (JSONException e){
             Log.e(TAG, "Failed to parse JSON", e);
         } catch (IOException e){
-            Log.e(TAG, "Failed to fetch items", e);
+            Log.e(TAG, "Failed to fetch items" + e.getMessage());
         }
 
+        Log.i(TAG, "items" + items);
         return items;
     }
 
@@ -86,6 +87,7 @@ public class TheMovieSearch {
             movie.setDate(resultObject.getString("release_date"));
 
             movies.add(movie);
+            Log.i(TAG, "Item successfully added: " + movie.getImage());
         }
     }
 }

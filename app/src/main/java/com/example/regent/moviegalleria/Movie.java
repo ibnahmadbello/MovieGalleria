@@ -12,6 +12,16 @@ public class Movie {
         return movieName;
     }
 
+    public Movie(){}
+
+    public Movie(String movieName, String image, String overView, String rating, String date){
+        this.movieName = movieName;
+        this.image = image;
+        this.overView = overView;
+        this.rating = rating;
+        this.date = date;
+    }
+
     public void setMovieName(String movieName) {
         this.movieName = movieName;
     }

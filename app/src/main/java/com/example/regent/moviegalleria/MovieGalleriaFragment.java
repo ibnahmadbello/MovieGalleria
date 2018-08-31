@@ -1,3 +1,4 @@
+/*
 package com.example.regent.moviegalleria;
 
 import android.os.AsyncTask;
@@ -116,3 +117,4 @@ public class MovieGalleriaFragment extends Fragment {
     }
 
 }
+*/
