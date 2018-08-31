@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.MovieSearchViewHolder> {
 
     private static final String TAG = MovieSearchAdapter.class.getSimpleName();
+
+    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
     private Context context;
     private List<Movie> movieList;
@@ -35,8 +39,8 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
     @Override
     public void onBindViewHolder(MovieSearchViewHolder holder, int position) {
         Movie movieItem = movieList.get(position);
-//        holder.bindMovieItem(movieItem, context);
-        holder.movieName.setText(movieItem.getMovieName());
+        holder.bindMovieItem(movieItem);
+//        holder.movieName.setText(movieItem.getMovieName());
     }
 
     @Override
@@ -62,9 +66,9 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
         public void bindMovieItem(Movie movieItem){
             movie = movieItem;
             movieName.setText(movie.getMovieName());
-            /*Picasso.with(context)
-                    .load(movie.getImage())
-                    .into(movieImage);*/
+            Picasso.with(context)
+                    .load(IMAGE_BASE_URL + movie.getImage())
+                    .into(movieImage);
         }
 
     }
