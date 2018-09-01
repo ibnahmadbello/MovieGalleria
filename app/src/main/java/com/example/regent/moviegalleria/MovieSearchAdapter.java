@@ -20,12 +20,19 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
 
     private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
+    final private RecyclerViewClickListener mClickListener;
+
     private Context context;
     private List<Movie> movieList;
 
-    public MovieSearchAdapter(MovieGalleriaActivity context, List<Movie> movies){
+    public MovieSearchAdapter(MovieGalleriaActivity context, List<Movie> movies, RecyclerViewClickListener clickListener){
         this.context = context;
         movieList = movies;
+        mClickListener = clickListener;
+    }
+
+    public interface RecyclerViewClickListener{
+        void onItemClick(int clickedItemPosition);
     }
 
     @Override
@@ -49,7 +56,7 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
         return movieList.size();
     }
 
-    class MovieSearchViewHolder extends RecyclerView.ViewHolder{
+    class MovieSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private CardView cardView;
         private ImageView movieImage;
         private TextView movieName;
@@ -61,6 +68,7 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
             movieImage = view.findViewById(R.id.movie_image_view);
             movieName = view.findViewById(R.id.movie_text_view);
             cardView = view.findViewById(R.id.card_view);
+            view.setOnClickListener(this);
         }
 
         public void bindMovieItem(Movie movieItem){
@@ -71,6 +79,12 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
                     .into(movieImage);
         }
 
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mClickListener.onItemClick(clickedPosition);
+        }
     }
+
 
 }

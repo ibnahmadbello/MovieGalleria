@@ -1,5 +1,6 @@
 package com.example.regent.moviegalleria;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieGalleriaActivity extends AppCompatActivity {
+public class MovieGalleriaActivity extends AppCompatActivity implements MovieSearchAdapter.RecyclerViewClickListener{
 
     private static final String TAG = MovieGalleriaActivity.class.getSimpleName();
 
@@ -29,7 +31,7 @@ public class MovieGalleriaActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.activity_movie_galleria_recycler_view);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MovieGalleriaActivity.this, 2);
-        searchAdapter = new MovieSearchAdapter(this, new ArrayList<Movie>());
+        searchAdapter = new MovieSearchAdapter(this, new ArrayList<Movie>(), this);
 
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(searchAdapter);
@@ -37,6 +39,13 @@ public class MovieGalleriaActivity extends AppCompatActivity {
         new FetchMovieTask().execute();
         Log.i(TAG, "Movie size in activity: " + movieItems.size());
     }
+
+    @Override
+    public void onItemClick(int clickedItemPosition) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent);
+    }
+
 
     private class FetchMovieTask extends AsyncTask<Void, Void, List<Movie>> {
 
@@ -49,11 +58,10 @@ public class MovieGalleriaActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Movie> movies) {
             movieItems = movies;
-//            setupAdapter();
-//            searchAdapter = new MovieSearchAdapter(movieItems);
-            searchAdapter = new MovieSearchAdapter(MovieGalleriaActivity.this, movies);
+            searchAdapter = new MovieSearchAdapter(MovieGalleriaActivity.this, movies, MovieGalleriaActivity.this);
             mRecyclerView.setAdapter(searchAdapter);
         }
     }
+
 
 }
