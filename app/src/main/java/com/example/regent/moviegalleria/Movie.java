@@ -1,6 +1,9 @@
 package com.example.regent.moviegalleria;
 
-public class Movie {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Movie implements Parcelable{
 
     private String movieName;
     private String image;
@@ -61,5 +64,31 @@ public class Movie {
     @Override
     public String toString(){
         return movieName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(movieName);
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel parcel) {
+            return new Movie(parcel);
+        }
+
+        @Override
+        public Movie[] newArray(int i) {
+            return new Movie[i];
+        }
+    };
+
+    public Movie(Parcel parcel){
+        movieName = parcel.readString();
     }
 }

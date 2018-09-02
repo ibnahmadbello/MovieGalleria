@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 public class DetailActivity extends AppCompatActivity {
 
+    private static final String TAG = DetailActivity.class.getSimpleName();
     public static final String EXTRA_POSITION = "extra_position";
 
     private TextView testTextView;
@@ -16,5 +17,10 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         testTextView = (TextView) findViewById(R.id.test_text_view);
+
+        Movie movie = (Movie) getIntent().getParcelableExtra(MovieGalleriaActivity.EXTRA);
+
+        testTextView.setText(movie.getMovieName());
+
     }
 }

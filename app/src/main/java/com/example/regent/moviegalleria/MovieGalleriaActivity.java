@@ -19,6 +19,8 @@ public class MovieGalleriaActivity extends AppCompatActivity implements MovieSea
 
     private static final String TAG = MovieGalleriaActivity.class.getSimpleName();
 
+    public static String EXTRA = "Movie_Extra";
+
     private RecyclerView mRecyclerView;
     private MovieSearchAdapter searchAdapter;
     private List<Movie> movieItems = new ArrayList<>();
@@ -45,7 +47,7 @@ public class MovieGalleriaActivity extends AppCompatActivity implements MovieSea
         Intent intent = new Intent(this, DetailActivity.class);
         Movie testMovie = movieItems.get(clickedItemPosition);
 //        intent.putExtra(DetailActivity.EXTRA_POSITION, clickedItemPosition);
-        intent.putExtra("test", movieItems.get(clickedItemPosition).toString());
+        intent.putExtra(EXTRA, testMovie);
         startActivity(intent);
     }
 
