@@ -43,6 +43,9 @@ public class MovieGalleriaActivity extends AppCompatActivity implements MovieSea
     @Override
     public void onItemClick(int clickedItemPosition) {
         Intent intent = new Intent(this, DetailActivity.class);
+        Movie testMovie = movieItems.get(clickedItemPosition);
+//        intent.putExtra(DetailActivity.EXTRA_POSITION, clickedItemPosition);
+        intent.putExtra("test", movieItems.get(clickedItemPosition).toString());
         startActivity(intent);
     }
 

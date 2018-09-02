@@ -1,6 +1,7 @@
 package com.example.regent.moviegalleria;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -83,6 +84,8 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
         public void onClick(View view) {
             int clickedPosition = getAdapterPosition();
             mClickListener.onItemClick(clickedPosition);
+            Movie singleMovie = movieList.get(clickedPosition);
+            Log.i(TAG, singleMovie.toString());
         }
     }
 
