@@ -74,6 +74,11 @@ public class Movie implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(movieName);
+        parcel.writeString(image);
+        parcel.writeString(overView);
+        parcel.writeString(rating);
+        parcel.writeString(date);
+
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -90,5 +95,9 @@ public class Movie implements Parcelable{
 
     public Movie(Parcel parcel){
         movieName = parcel.readString();
+        image = parcel.readString();
+        overView = parcel.readString();
+        rating = parcel.readString();
+        date = parcel.readString();
     }
 }

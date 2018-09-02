@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,11 +17,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieGalleriaActivity extends AppCompatActivity implements MovieSearchAdapter.RecyclerViewClickListener{
+public class MovieGalleriaActivity extends AppCompatActivity implements
+        MovieSearchAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<Movie>{
 
     private static final String TAG = MovieGalleriaActivity.class.getSimpleName();
 
     public static String EXTRA = "Movie_Extra";
+    private static final int LOADER_NUMBER = 19;
 
     private RecyclerView mRecyclerView;
     private MovieSearchAdapter searchAdapter;
@@ -49,6 +53,21 @@ public class MovieGalleriaActivity extends AppCompatActivity implements MovieSea
 //        intent.putExtra(DetailActivity.EXTRA_POSITION, clickedItemPosition);
         intent.putExtra(EXTRA, testMovie);
         startActivity(intent);
+    }
+
+    @Override
+    public Loader<Movie> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Movie> loader, Movie data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Movie> loader) {
+
     }
 
 

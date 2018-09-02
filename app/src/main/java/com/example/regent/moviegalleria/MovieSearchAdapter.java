@@ -19,7 +19,7 @@ public class MovieSearchAdapter extends RecyclerView.Adapter<MovieSearchAdapter.
 
     private static final String TAG = MovieSearchAdapter.class.getSimpleName();
 
-    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+    public static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
     final private RecyclerViewClickListener mClickListener;
 
