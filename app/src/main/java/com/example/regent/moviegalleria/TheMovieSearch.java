@@ -20,6 +20,10 @@ public class TheMovieSearch {
 
     private static final String TAG = TheMovieSearch.class.getSimpleName();
     private static final String API_KEY = "e8ee808272e37253ce9bcafad5189dd0";
+    private static final Uri ENDPOINT = Uri.parse("https://api.themoviedb.org/3/movie/")
+            .buildUpon()
+            .appendQueryParameter("api_key", API_KEY)
+            .build();
 
 
     public byte[] getUrlBytes(String movieUrl) throws IOException{
@@ -51,15 +55,10 @@ public class TheMovieSearch {
         return new String(getUrlBytes(movieUrl));
     }
 
-    public List<Movie> fetchMovie(){
+    public List<Movie> downloadMovie(String url){
         List<Movie> items = new ArrayList<>();
 
         try {
-            String url = Uri.parse("https://api.themoviedb.org/3/movie/")
-                    .buildUpon()
-                    .appendPath("popular")
-                    .appendQueryParameter("api_key", API_KEY)
-                    .build().toString();
             String jsonString = getUrlString(url);
             Log.i(TAG, "RECEIVED JSON: " + jsonString);
             JSONObject jsonBody = new JSONObject(jsonString);
@@ -72,6 +71,22 @@ public class TheMovieSearch {
 
         Log.i(TAG, "items" + items);
         return items;
+    }
+
+    private String buildUrl(String query){
+        Uri.Builder builder = ENDPOINT.buildUpon().appendPath(query);
+
+        return builder.build().toString();
+    }
+
+    public List<Movie> fetchPopularMovie(){
+        String url = buildUrl("popular");
+        return downloadMovie(url);
+    }
+
+    public List<Movie> fetchTopRated(){
+        String url = buildUrl("top_rated");
+        return downloadMovie(url);
     }
 
     private void parseItems(List<Movie> movies, JSONObject jsonBody) throws IOException, JSONException{
@@ -90,4 +105,11 @@ public class TheMovieSearch {
             Log.i(TAG, "Item successfully added: " + movie.getImage());
         }
     }
+
+    /*String url = Uri.parse("https://api.themoviedb.org/3/movie/")
+            .buildUpon()
+            .appendPath("popular")
+            .appendQueryParameter("api_key", API_KEY)
+            .build().toString();*/
+
 }

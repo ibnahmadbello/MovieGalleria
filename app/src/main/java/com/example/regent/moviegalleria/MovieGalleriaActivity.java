@@ -12,6 +12,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class MovieGalleriaActivity extends AppCompatActivity implements
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(searchAdapter);
 
-        new FetchMovieTask().execute();
+//        new FetchMovieTask().execute();
         Log.i(TAG, "Movie size in activity: " + movieItems.size());
     }
 
@@ -73,10 +75,20 @@ public class MovieGalleriaActivity extends AppCompatActivity implements
 
     private class FetchMovieTask extends AsyncTask<Void, Void, List<Movie>> {
 
+        private String movieQuery;
+
+        public FetchMovieTask(String query){
+            movieQuery = query;
+        }
 
         @Override
         protected List<Movie> doInBackground(Void... params) {
-            return new TheMovieSearch().fetchMovie();
+            if (movieQuery.equals("top_rated")) {
+                return new TheMovieSearch().fetchTopRated();
+            } else if (movieQuery.equals("popular")){
+                return new TheMovieSearch().fetchPopularMovie();
+            }
+            return null;
         }
 
         @Override
@@ -87,5 +99,24 @@ public class MovieGalleriaActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movie_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_popular_movie:
+                String popular_query = "popular";
+                new FetchMovieTask(popular_query).execute();
+                break;
+            case R.id.action_top_rated_movie:
+                String top_rated_query = "top_rated";
+                new FetchMovieTask(top_rated_query).execute();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
