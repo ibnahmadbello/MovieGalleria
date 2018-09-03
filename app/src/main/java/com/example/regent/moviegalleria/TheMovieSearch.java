@@ -19,7 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class TheMovieSearch {
 
     private static final String TAG = TheMovieSearch.class.getSimpleName();
-    private static final String API_KEY = "e8ee808272e37253ce9bcafad5189dd0";
+    private static final String API_KEY = "PUT YOUR API KEY HERE";
     private static final Uri ENDPOINT = Uri.parse("https://api.themoviedb.org/3/movie/")
             .buildUpon()
             .appendQueryParameter("api_key", API_KEY)
