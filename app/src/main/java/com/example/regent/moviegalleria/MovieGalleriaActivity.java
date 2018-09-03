@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieGalleriaActivity extends AppCompatActivity implements
-        MovieSearchAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<Movie>{
+        MovieSearchAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<List<Movie>>{
 
     private static final String TAG = MovieGalleriaActivity.class.getSimpleName();
 
@@ -65,20 +65,34 @@ public class MovieGalleriaActivity extends AppCompatActivity implements
         startActivity(intent);
     }
 
-    @Override
-    public Loader<Movie> onCreateLoader(int id, Bundle args) {
-        return null;
+    /*@Override
+    public Loader<List<Movie>> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<List<Movie>>(this) {
+            private String movieQuery;
+            @Nullable
+            @Override
+            public List<Movie> loadInBackground() {
+                if (movieQuery.equals("top_rated")) {
+                    QueryPreferences.setStoredQuery(MovieGalleriaActivity.this, "top_rated");
+                    return new TheMovieSearch().fetchTopRated();
+                } else if (movieQuery.equals("popular")){
+                    QueryPreferences.setStoredQuery(MovieGalleriaActivity.this, "popular");
+                    return new TheMovieSearch().fetchPopularMovie();
+                }
+                return null;
+            }
+        };
     }
 
     @Override
-    public void onLoadFinished(Loader<Movie> loader, Movie data) {
+    public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> data) {
 
     }
 
     @Override
-    public void onLoaderReset(Loader<Movie> loader) {
+    public void onLoaderReset(Loader<List<Movie>> loader) {
 
-    }
+    }*/
 
 
     private class FetchMovieTask extends AsyncTask<Void, Void, List<Movie>> {
