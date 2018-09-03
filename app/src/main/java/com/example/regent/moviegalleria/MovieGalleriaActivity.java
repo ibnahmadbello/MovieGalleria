@@ -60,39 +60,9 @@ public class MovieGalleriaActivity extends AppCompatActivity implements
     public void onItemClick(int clickedItemPosition) {
         Intent intent = new Intent(this, DetailActivity.class);
         Movie testMovie = movieItems.get(clickedItemPosition);
-//        intent.putExtra(DetailActivity.EXTRA_POSITION, clickedItemPosition);
         intent.putExtra(EXTRA, testMovie);
         startActivity(intent);
     }
-
-    /*@Override
-    public Loader<List<Movie>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<List<Movie>>(this) {
-            private String movieQuery;
-            @Nullable
-            @Override
-            public List<Movie> loadInBackground() {
-                if (movieQuery.equals("top_rated")) {
-                    QueryPreferences.setStoredQuery(MovieGalleriaActivity.this, "top_rated");
-                    return new TheMovieSearch().fetchTopRated();
-                } else if (movieQuery.equals("popular")){
-                    QueryPreferences.setStoredQuery(MovieGalleriaActivity.this, "popular");
-                    return new TheMovieSearch().fetchPopularMovie();
-                }
-                return null;
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Movie>> loader) {
-
-    }*/
 
 
     private class FetchMovieTask extends AsyncTask<Void, Void, List<Movie>> {
