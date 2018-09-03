@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieGalleriaActivity extends AppCompatActivity implements
-        MovieSearchAdapter.RecyclerViewClickListener, LoaderManager.LoaderCallbacks<List<Movie>>{
+        MovieSearchAdapter.RecyclerViewClickListener{
 
     private static final String TAG = MovieGalleriaActivity.class.getSimpleName();
 
